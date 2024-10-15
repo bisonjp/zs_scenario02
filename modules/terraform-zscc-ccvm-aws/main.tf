@@ -33,7 +33,10 @@ resource "aws_instance" "cc_vm" {
     http_endpoint = "enabled"
     http_tokens   = var.imdsv2_enabled ? "required" : "optional"
   }
-
+  network_interface {
+    device_index         = 0
+    network_interface_id = aws_network_interface.cc_vm_nic_index_0[count.index].id
+  }
 }
 
 
