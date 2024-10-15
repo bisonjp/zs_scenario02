@@ -39,24 +39,24 @@ resource "aws_instance" "cc_vm" {
   }
 }
 
-
-resource "aws_network_interface" "cc_vm_nic_index_0" {
-  count             = local.valid_cc_create ? var.cc_count : 0
-  description       = "cc next hop forwarding interface"
-  subnet_id         = var.mgmt_subnet_id
-  source_dest_check = false
-}
-
-
 ################################################################################
 # Create Cloud Connector Service Interface for Small CC. 
 # This interface becomes LB0 interface for Medium/Large size CCs
 ################################################################################
+resource "aws_network_interface" "cc_vm_nic_index_0" {
+  count             = local.valid_cc_create ? var.cc_count : 0
+  description       = "cc next hop forwarding interface"
+  subnet_id         = var.service_subnet_id
+  source_dest_check = false
+}
+
+################################################################################
+# Create Cloud Connector Mgmt Interface.
+################################################################################
 resource "aws_network_interface" "cc_vm_nic_index_1" {
   count             = local.valid_cc_create ? var.cc_count : 0
-#  description       = var.cc_instance_size == "small" ? "Primary Interface for service traffic" : "CC Med/Lrg LB interface"
-  subnet_id         = var.service_subnet_id
-#  security_groups   = var.service_security_group_id
+  description       = "cc mgmt interface"
+  subnet_id         = var.mgmt_subnet_id
   source_dest_check = true
   private_ips_count = 1
   attachment {
