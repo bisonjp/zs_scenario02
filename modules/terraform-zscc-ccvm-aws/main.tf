@@ -21,7 +21,7 @@ resource "aws_instance" "cc_vm" {
 #  vpc_security_group_ids      = var.security_group
   subnet_id                   = var.mgmt_subnet_id
   key_name                    = var.instance_key
-  associate_public_ip_address = false
+#  associate_public_ip_address = false
   user_data                   = base64encode(var.user_data)
 
   tags = {
