@@ -8,9 +8,14 @@ output "availability_zone" {
   value       = aws_instance.cc_vm[*].availability_zone
 }
 
-output "service_eni_1" {
+output "mgmt_eni_1" {
   description = "Instance Device Index 1 Network ID"
   value       = aws_network_interface.cc_vm_nic_index_1[*].id
+}
+
+output "service_eni_1" {
+  description = "Instance Device Index 0 Network ID"
+  value       = aws_network_interface.cc_vm_nic_index_0[*].id
 }
 
 output "service_eni_2" {
