@@ -40,7 +40,7 @@ resource "aws_instance" "cc_vm" {
 resource "aws_network_interface" "cc_vm_nic_index_0" {
   count             = local.valid_cc_create ? var.cc_count : 0
   description       = "cc next hop forwarding interface"
-  subnet_id         = element(var.mgmt_subnet_id, count.index)
+  subnet_id         = var.mgmt_subnet_id
   source_dest_check = false
 }
 
